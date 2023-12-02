@@ -6,5 +6,7 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 
 public interface YouTubeClientFactory {
-    YouTube createYouTubeClient() throws GeneralSecurityException, IOException;
+
+	YouTube createYouTubeClient() throws GeneralSecurityException, IOException;
+
 }

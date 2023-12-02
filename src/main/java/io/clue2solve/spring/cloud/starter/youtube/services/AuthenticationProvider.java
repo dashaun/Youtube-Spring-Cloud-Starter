@@ -13,15 +13,17 @@ import java.nio.charset.StandardCharsets;
 @Service
 public class AuthenticationProvider {
 
-    @Value("${credentials.json:#{null}}")
-    private String credentialsJson;
+	@Value("${credentials.json:#{null}}")
+	private String credentialsJson;
 
-    public GoogleCredentials getCredentials() throws IOException {
-        if (credentialsJson != null && !credentialsJson.isEmpty()) {
-            InputStream credentialsStream = new ByteArrayInputStream(credentialsJson.getBytes(StandardCharsets.UTF_8));
-            return GoogleCredentials.fromStream(credentialsStream);
-        } else {
-            throw new RuntimeException("Failed to load credentials");
-        }
-    }
+	public GoogleCredentials getCredentials() throws IOException {
+		if (credentialsJson != null && !credentialsJson.isEmpty()) {
+			InputStream credentialsStream = new ByteArrayInputStream(credentialsJson.getBytes(StandardCharsets.UTF_8));
+			return GoogleCredentials.fromStream(credentialsStream);
+		}
+		else {
+			throw new RuntimeException("Failed to load credentials");
+		}
+	}
+
 }

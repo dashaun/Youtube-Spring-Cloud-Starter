@@ -10,12 +10,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class YouTubeClientFactoryAutoConfig {
 
-    @Value("${youtube.apiKey}")
-    private String apiKey;
+	@Value("${youtube.apiKey}")
+	private String apiKey;
 
-    @Bean
-    @ConditionalOnProperty(name = "youtube.apiKey")
-    public YouTubeClientFactory youTubeClientFactory() {
-        return new ApiKeyYouTubeClientFactory(apiKey);
-    }
+	@Bean
+	@ConditionalOnProperty(name = "youtube.apiKey")
+	public YouTubeClientFactory youTubeClientFactory() {
+		return new ApiKeyYouTubeClientFactory(apiKey);
+	}
+
 }

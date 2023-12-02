@@ -17,20 +17,20 @@ import java.security.GeneralSecurityException;
 @ConditionalOnProperty(name = "youtube.apiKey")
 public class ApiKeyYouTubeClientFactory implements YouTubeClientFactory {
 
-    private final String apiKey;
+	private final String apiKey;
 
-    public ApiKeyYouTubeClientFactory(@Value("${youtube.apiKey}") String apiKey) {
-        this.apiKey = apiKey;
-    }
+	public ApiKeyYouTubeClientFactory(@Value("${youtube.apiKey}") String apiKey) {
+		this.apiKey = apiKey;
+	}
 
-    @Override
-    public YouTube createYouTubeClient() throws GeneralSecurityException, IOException {
-        HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
-        JsonFactory jsonFactory = GsonFactory.getDefaultInstance();
+	@Override
+	public YouTube createYouTubeClient() throws GeneralSecurityException, IOException {
+		HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
+		JsonFactory jsonFactory = GsonFactory.getDefaultInstance();
 
-        return new YouTube.Builder(httpTransport, jsonFactory, null)
-                .setApplicationName("youtube-starter")
-                .setYouTubeRequestInitializer(new YouTubeRequestInitializer(apiKey))
-                .build();
-    }
+		return new YouTube.Builder(httpTransport, jsonFactory, null).setApplicationName("youtube-starter")
+			.setYouTubeRequestInitializer(new YouTubeRequestInitializer(apiKey))
+			.build();
+	}
+
 }
