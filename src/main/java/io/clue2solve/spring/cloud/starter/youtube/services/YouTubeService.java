@@ -69,8 +69,4 @@ public class YouTubeService {
 			.collect(Collectors.toList());
 	}
 
-
-
-
-
 }
