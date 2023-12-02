@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import io.clue2solve.spring.cloud.starter.youtube.model.CaptionInfo;
@@ -24,14 +26,14 @@ public class YouTubeService {
 
 	// Fetch video metadata
 	public Video getVideo(String videoId) throws IOException {
-		YouTube.Videos.List request = this.youtube.videos().list("snippet,contentDetails,statistics");
-		VideoListResponse response = request.setId(videoId).execute();
+		YouTube.Videos.List request = this.youtube.videos().list(Arrays.asList("snippet", "contentDetails"));
+		VideoListResponse response = request.setId(Collections.singletonList(videoId)).execute();
 		return response.getItems().get(0);
 	}
 
 	public VideoDetails getVideoDetails(String videoId) throws IOException {
-		YouTube.Videos.List request = this.youtube.videos().list("snippet,contentDetails,statistics");
-		VideoListResponse response = request.setId(videoId).execute();
+		YouTube.Videos.List request = this.youtube.videos().list(Arrays.asList("snippet,contentDetails,statistics"));
+		VideoListResponse response = request.setId(Collections.singletonList(videoId)).execute();
 		Video video = response.getItems().get(0);
 
 		VideoSnippet snippet = video.getSnippet();
@@ -46,7 +48,8 @@ public class YouTubeService {
 		String duration = contentDetails != null ? contentDetails.getDuration() : null;
 
 		// Get captions
-		YouTube.Captions.List captionRequest = this.youtube.captions().list("snippet", videoId);
+		YouTube.Captions.List captionRequest = this.youtube.captions()
+			.list(Collections.singletonList("snippet"), videoId);
 		CaptionListResponse captionResponse = captionRequest.setVideoId(videoId).execute();
 		List<Caption> captions = captionResponse.getItems();
 		int numberOfCaptions = captions.size();
@@ -59,7 +62,9 @@ public class YouTubeService {
 	}
 
 	public List<CaptionInfo> getCaptionInfo(String videoId) throws IOException {
-		CaptionListResponse captionResponse = this.youtube.captions().list("snippet", videoId).execute();
+		CaptionListResponse captionResponse = this.youtube.captions()
+			.list(Collections.singletonList("snippet"), videoId)
+			.execute();
 		List<Caption> captions = captionResponse.getItems();
 
 		return captions.stream()
