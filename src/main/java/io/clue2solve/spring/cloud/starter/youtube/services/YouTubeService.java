@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.stream.Collectors;
+import io.clue2solve.spring.cloud.starter.youtube.model.CaptionInfo;
+import io.clue2solve.spring.cloud.starter.youtube.model.VideoDetails;
 
 @Service
 public class YouTubeService {
@@ -67,11 +69,8 @@ public class YouTubeService {
 			.collect(Collectors.toList());
 	}
 
-	public record VideoDetails(String id, String title, String description, BigInteger viewCount, BigInteger likeCount,
-			String duration, int numberOfCaptions, List<String> captionLanguages) {
-	}
 
-	public record CaptionInfo(String id, String language, String trackKind, boolean isDraft, boolean isAutoSynced) {
-	}
+
+
 
 }
