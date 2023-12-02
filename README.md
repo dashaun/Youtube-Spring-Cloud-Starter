@@ -1,4 +1,9 @@
 ## YouTube Spring Cloud Starter
+![Alpha](https://img.shields.io/badge/Release-Alpha-darkred)
+[![Java CI](https://github.com/clue2solve/Youtube-Spring-Cloud-Starter/actions/workflows/ci.yml/badge.svg)](https://github.com/clue2solve/Youtube-Spring-Cloud-Starter/actions/workflows/ci.yml)
+[![Known Vulnerabilities](https://snyk.io/test/github/clue2solve/Youtube-Spring-Cloud-Starter/badge.svg?style=plastic)](https://snyk.io/test/github/clue2solve/Youtube-Spring-Cloud-Starter)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 This project is a Spring Cloud Starter for the YouTube Data API. It provides a YouTubeService class that simplifies the process of fetching video metadata and captions from YouTube.
 
 ### Features
