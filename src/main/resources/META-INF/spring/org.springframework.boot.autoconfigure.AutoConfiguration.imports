@@ -1,2 +1,3 @@
 io.clue2solve.spring.cloud.starter.youtube.autoconfig.YoutubeAutoConfiguration
 io.clue2solve.spring.cloud.starter.youtube.autoconfig.YouTubeClientFactoryAutoConfig
+io.clue2solve.spring.cloud.starter.youtube.autoconfig.YoutubeServiceAutoConfiguration

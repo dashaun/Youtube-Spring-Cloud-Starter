@@ -5,7 +5,10 @@ import com.google.api.services.youtube.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,7 +17,6 @@ import java.util.stream.Collectors;
 import io.clue2solve.spring.cloud.starter.youtube.model.CaptionInfo;
 import io.clue2solve.spring.cloud.starter.youtube.model.VideoDetails;
 
-@Service
 public class YouTubeService {
 
 	private final YouTube youtube;
@@ -72,6 +74,26 @@ public class YouTubeService {
 					caption.getSnippet().getTrackKind(), caption.getSnippet().getIsDraft(),
 					caption.getSnippet().getIsAutoSynced()))
 			.collect(Collectors.toList());
+	}
+
+	public String downloadCaption(String videoId, String language) throws IOException {
+		CaptionListResponse captionResponse = this.youtube.captions()
+			.list(Collections.singletonList("snippet"), videoId)
+			.execute();
+		List<Caption> captions = captionResponse.getItems();
+
+		for (Caption caption : captions) {
+			if (caption.getSnippet().getLanguage().equals(language)) {
+				// Download the caption
+				YouTube.Captions.Download captionDownload = youtube.captions().download(caption.getId());
+				captionDownload.getMediaHttpDownloader().setDirectDownloadEnabled(true);
+				InputStream captionStream = captionDownload.executeMediaAsInputStream();
+				return new BufferedReader(new InputStreamReader(captionStream)).lines()
+					.collect(Collectors.joining("\n"));
+			}
+		}
+
+		return null;
 	}
 
 }
