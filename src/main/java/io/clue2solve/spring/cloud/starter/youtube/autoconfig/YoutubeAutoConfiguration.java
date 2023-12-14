@@ -14,7 +14,6 @@ public class YoutubeAutoConfiguration {
 
 	private final YouTubeClientFactory clientFactory;
 
-	@Autowired
 	public YoutubeAutoConfiguration(YouTubeClientFactory clientFactory) {
 		this.clientFactory = clientFactory;
 	}

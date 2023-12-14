@@ -9,11 +9,13 @@ import com.google.api.services.youtube.YouTubeRequestInitializer;
 import io.clue2solve.spring.cloud.starter.youtube.client.YouTubeClientFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 
+@Component
 @ConditionalOnProperty(name = "youtube.apiKey")
 public class ApiKeyYouTubeClientFactory implements YouTubeClientFactory {
 

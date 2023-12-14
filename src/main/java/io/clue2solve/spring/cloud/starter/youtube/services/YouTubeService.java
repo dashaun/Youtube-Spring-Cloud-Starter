@@ -3,15 +3,12 @@ package io.clue2solve.spring.cloud.starter.youtube.services;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.*;
+import java.io.*;
 import java.math.BigInteger;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import io.clue2solve.spring.cloud.starter.youtube.model.CaptionInfo;
@@ -30,13 +27,13 @@ public class YouTubeService {
 	public Video getVideo(String videoId) throws IOException {
 		YouTube.Videos.List request = this.youtube.videos().list(Arrays.asList("snippet", "contentDetails"));
 		VideoListResponse response = request.setId(Collections.singletonList(videoId)).execute();
-		return response.getItems().get(0);
+		return response.getItems().getFirst();
 	}
 
 	public VideoDetails getVideoDetails(String videoId) throws IOException {
-		YouTube.Videos.List request = this.youtube.videos().list(Arrays.asList("snippet,contentDetails,statistics"));
+		YouTube.Videos.List request = this.youtube.videos().list(List.of("snippet,contentDetails,statistics"));
 		VideoListResponse response = request.setId(Collections.singletonList(videoId)).execute();
-		Video video = response.getItems().get(0);
+		Video video = response.getItems().getFirst();
 
 		VideoSnippet snippet = video.getSnippet();
 		String title = snippet != null ? snippet.getTitle() : null;
@@ -77,6 +74,7 @@ public class YouTubeService {
 	}
 
 	public String downloadCaption(String videoId, String language) throws IOException {
+
 		CaptionListResponse captionResponse = this.youtube.captions()
 			.list(Collections.singletonList("snippet"), videoId)
 			.execute();

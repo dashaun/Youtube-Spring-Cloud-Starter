@@ -13,7 +13,7 @@ import java.nio.charset.StandardCharsets;
 @Service
 public class AuthenticationProvider {
 
-	@Value("${credentials.json:#{null}}")
+	@Value("${client_secrets.json:#{null}}")
 	private String credentialsJson;
 
 	public GoogleCredentials getCredentials() throws IOException {
